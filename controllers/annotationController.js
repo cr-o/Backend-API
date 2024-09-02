@@ -31,9 +31,7 @@ exports.createAnnotation = async (req, res) => {
 
         return res.status(201).json(response)
     } catch (error) {
-        console.error("Error creating annotation:", error); // Log the entire error object
-
-        // Provide more detailed error message in the response
+        console.error("Error creating annotation:", error);
         return res.status(400).json({ 
             message: 'Error while creating annotation', 
             error: error.message || 'Unknown error'
