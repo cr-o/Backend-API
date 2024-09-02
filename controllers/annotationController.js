@@ -15,6 +15,21 @@ exports.createAnnotation = async (req, res) => {
 exports.searchAnnotations = async (req, res) => {
     try {
         const { id, label, annotator } = req.query;
+        const searchCriteria = {};
+        if (id) {
+            searchCriteria._id = id;
+        }
+        if (label) {
+            searchCriteria.label = label;
+        }
+        if (annotator) {
+            searchCriteria.annotator = annotator;
+        }
+        const annotations = await Annotation.find(searchCriteria);
+        if (annotations.length === 0) {
+            return res.status(404).json({ message: 'No annotations found' });
+        }
+        return res.json(annotations);
     } catch (error) {
         return res.status(404).json({ message: 'No annotations found' });
     }
