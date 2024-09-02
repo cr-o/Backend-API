@@ -19,6 +19,8 @@ app.get('/', (req, res) => {
   res.send('Hello, World!');
 });
 
+app.use('/api/annotations', require('./routes/annotations'));
+
 app.listen(process.env.PORT || 3000, () => {
   console.log('Server is running on port 3000');
 });
