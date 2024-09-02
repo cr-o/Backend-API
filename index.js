@@ -1,26 +1,26 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const dotenv = require('dotenv');
+const express = require('express')
+const mongoose = require('mongoose')
+const dotenv = require('dotenv')
 
-const app = express();
+const app = express()
 
-dotenv.config();
+dotenv.config()
 
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
-  useUnifiedTopology: true,
+  useUnifiedTopology: true
 }).then(() => {
-  console.log('Successfully connected to MongoDB Atlas');
+  console.log('Successfully connected to MongoDB Atlas')
 }).catch((error) => {
-  console.error('Error connecting to MongoDB Atlas:', error);
-});
+  console.error('Error connecting to MongoDB Atlas:', error)
+})
 
 app.get('/', (req, res) => {
-  res.send('Hello, World!');
-});
+  res.send('Hello, World!')
+})
 
-app.use('/api/annotations', require('./routes/annotations'));
+app.use('/api/annotations', require('./routes/annotations'))
 
 app.listen(process.env.PORT || 3000, () => {
-  console.log('Server is running on port 3000');
-});
+  console.log('Server is running on port 3000')
+})

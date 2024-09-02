@@ -1,5 +1,5 @@
-function calculateArea() {
+function calculateArea () {
 
 }
 
-module.exports = calculateArea;
+module.exports = calculateArea

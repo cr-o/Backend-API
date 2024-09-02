@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const calculateArea = require('../utils/calculateArea');
+const mongoose = require('mongoose')
+const calculateArea = require('../utils/calculateArea')
 
 const annotationSchema = new mongoose.Schema({
   label: { type: String, required: true },
@@ -7,13 +7,13 @@ const annotationSchema = new mongoose.Schema({
   area: { type: Number, required: true },
   annotator: { type: String, required: true },
   createdAt: { type: Date, default: Date.now }
-});
+})
 
-annotationSchema.pre('save', function(next) { // calculate area of maskData before saving to db
+annotationSchema.pre('save', function (next) { // calculate area of maskData before saving to db
   if (this.isModified('maskData')) {
-    this.area = calculateArea(this.maskData);
+    this.area = calculateArea(this.maskData)
   }
-  next();
-});
+  next()
+})
 
-module.exports = mongoose.model('Annotation', annotationSchema);
+module.exports = mongoose.model('Annotation', annotationSchema)
