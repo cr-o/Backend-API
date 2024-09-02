@@ -10,11 +10,12 @@ exports.createAnnotation = async (req, res) => {
         return res.status(201).json(annotation)
     } catch (error) {
         return res.status(400).json({ message: 'Error while creating annotation', error })
+    }
 }
 
 exports.searchAnnotations = async (req, res) => {
     try {
-
+        const { id, label, annotator } = req.query;
     } catch (error) {
         return res.status(404).json({ message: 'No annotations found' });
     }
