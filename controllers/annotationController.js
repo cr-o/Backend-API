@@ -1,14 +1,41 @@
 const Annotation = require('../models/Annotation');
 const calculateArea = require('../utils/calculateArea');
+const mongoose = require('mongoose');
 
 exports.createAnnotation = async (req, res) => {
     try {
-        const {label, maskData, annotator} = req.body;
+        const { label, imageId, maskData, annotator } = req.body;
+        if (!mongoose.Types.ObjectId.isValid(imageId)) {
+            return res.status(400).json({ message: 'Invalid imageId format' });
+        }
+        const imageObjectId = new mongoose.Types.ObjectId(imageId);
         const area = calculateArea(maskData)
-        const annotation = await Annotation.create({ label, maskData, area, annotator });
-        return res.status(201).json(annotation)
+        const annotation = await Annotation.create({ 
+            label, 
+            imageId: imageObjectId, 
+            maskData, 
+            area, 
+            annotator 
+        });
+
+        const response = {
+            _id: annotation._id,
+            label: annotation.label,
+            imageId: annotation.imageId,
+            maskData: annotation.maskData,
+            area: annotation.area,
+            annotator: annotation.annotator,
+            createdAt: annotation.createdAt,
+            __v: annotation.__v
+        };
+
+        return res.status(201).json(response)
     } catch (error) {
-        return res.status(400).json({ message: 'Error while creating annotation', error })
+        console.error("Error creating annotation:", error);
+        return res.status(400).json({ 
+            message: 'Error while creating annotation', 
+            error: error.message || 'Unknown error'
+        });
     }
 }
 
