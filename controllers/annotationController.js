@@ -1,7 +1,6 @@
 const Annotation = require('../models/Annotation');
 const calculateArea = require('../utils/calculateArea');
 
-
 exports.createAnnotation = async (req, res) => {
     try {
         const {label, maskData, annotator} = req.body;
