@@ -7,7 +7,7 @@ const annotationSchema = new mongoose.Schema({
   area: { type: Number, required: true },
   annotator: { type: String, required: true },
   createdAt: { type: Date, default: Date.now }
-})
+}, { collection: 'SegmentationSystem' })
 
 annotationSchema.pre('save', function (next) { // calculate area of maskData before saving to db
   if (this.isModified('maskData')) {
