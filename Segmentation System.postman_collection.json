@@ -1,0 +1,147 @@
+{
+	"info": {
+		"_postman_id": "56bd28b9-b06c-4050-b01d-6e8ca2b8086d",
+		"name": "Segmentation System",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38053926"
+	},
+	"item": [
+		{
+			"name": "Create annotation",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"label\": \"TestData\",\r\n  \"imageId\": \"66d5f20b3a8ddba443ee11c3\",\r\n  \"maskData\": \"2x0,8x1,5x0\",\r\n  \"annotator\": \"test_user\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/annotations",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"annotations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search annotation by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/annotations/search?id=66d72eaf4f8231c6dada35d8",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"annotations",
+						"search"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "66d72eaf4f8231c6dada35d8"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search annotation by label",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/annotations/search?label=TestData",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"annotations",
+						"search"
+					],
+					"query": [
+						{
+							"key": "label",
+							"value": "TestData"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search annotation by annotator",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/annotations/search?annotator=test_user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"annotations",
+						"search"
+					],
+					"query": [
+						{
+							"key": "annotator",
+							"value": "test_user"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Rank annotation",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/annotations/rank?annotationId=66d72a61780b02bed7f27dc3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"annotations",
+						"rank"
+					],
+					"query": [
+						{
+							"key": "annotationId",
+							"value": "66d72a61780b02bed7f27dc3"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
