@@ -1,6 +1,6 @@
 const Annotation = require('../models/Annotation')
 const calculateArea = require('../utils/calculateArea')
-const formatAnnotationResponse = require('../utils/formatResponse')
+const formatResponse = require('../utils/formatResponse')
 const mongoose = require('mongoose')
 
 exports.createAnnotation = async (req, res) => {
@@ -18,7 +18,7 @@ exports.createAnnotation = async (req, res) => {
             area, 
             annotator 
         })
-        const response = formatAnnotationResponse(annotation)
+        const response = formatResponse(annotation)
         return res.status(201).json(response)
     } catch (error) {
         console.error("Error creating annotation:", error)
@@ -47,11 +47,9 @@ exports.searchAnnotations = async (req, res) => {
         if (annotations.length === 0) {
             return res.status(404).json({ message: 'No annotations found' })
         }
-
-        const response = formatAnnotationResponse(annotations);
-        return res.json(response)
+        return res.json(annotations);
     } catch (error) {
-        return res.status(404).json({ message: 'No annotations found' })
+        return res.status(404).json({ message: 'No annotations found' });
     }
 }
 
