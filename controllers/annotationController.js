@@ -7,7 +7,7 @@ exports.createAnnotation = async (req, res) => {
     try {
         const { label, imageId, maskData, annotator } = req.body;
         if (!mongoose.Types.ObjectId.isValid(imageId)) {
-            return res.status(400).json({ message: 'Invalid imageId format' })
+            return res.status(400).json({ message: 'Invalid imageId format' }) // ensure imageId is valid and assign it to annotation
         }
         const imageObjectId = new mongoose.Types.ObjectId(imageId)
         const area = calculateArea(maskData)
