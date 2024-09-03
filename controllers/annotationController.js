@@ -42,10 +42,12 @@ exports.searchAnnotations = async (req, res) => {
         if (annotator) {
             searchCriteria.annotator = annotator
         }
+
         const annotations = await Annotation.find(searchCriteria);
         if (annotations.length === 0) {
             return res.status(404).json({ message: 'No annotations found' })
         }
+
         const response = formatAnnotationResponse(annotations);
         return res.json(response)
     } catch (error) {
@@ -60,11 +62,23 @@ exports.rankAnnotations = async (req, res) => {
         if (!annotation) {
             return res.status(404).json({ message: 'Annotation not found' });
         }
+        
         const annotations = await Annotation.find({ imageId: annotation.imageId }).sort({ area: -1 }) // get all annotations of the image and sort by area descending
-        const rankedAnnotations = annotations.map((annotation, index) => ({ // calculate ranks
-            _id: annotation._id,
-            rank: index + 1,
-        }))
+        
+        let currentRank = 1;
+        let lastArea = null;
+
+        const rankedAnnotations = annotations.map((annotation, index) => { // calculate ranks
+            if (annotation.area !== lastArea) { // for handling duplicates so they are densely ranked
+                currentRank = index + 1
+                lastArea = annotation.area
+            }
+            return {
+                _id: annotation._id,
+                rank: currentRank
+            }
+        })
+
         const annotationToRank = rankedAnnotations.find(annotation => annotation._id.toString() === annotationId)
         const response = {
             rank: annotationToRank.rank,
