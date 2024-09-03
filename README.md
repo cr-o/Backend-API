@@ -10,16 +10,16 @@ The server will start on http://localhost:3000
 
 ## Endpoints
 
-/api/annotations  
+**/api/annotations**  
     POST  
     Creates a new annotation  
 
-/api/annotations/search  
+**/api/annotations/search**  
     GET  
     Query with id, label, or annotator  
     Retrieves annotations by id, label, or annotator  
 
-/api/annotations/rank  
+**/api/annotations/rank**  
     GET  
     Query with annotationId  
     Returns the rank of the specified annotation relative to others in the same image
